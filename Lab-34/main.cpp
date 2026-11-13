@@ -2,6 +2,7 @@
 #include <vector>
 #include <stack>
 #include <queue>
+#include <string>
 
 using namespace std;
 
@@ -9,23 +10,25 @@ class Graph {
 public:
     int numNodes;
     vector<vector<pair<int, int>>> adjList;
+    vector<string> names;
 
     Graph(int n) {
         numNodes = n;
         adjList.resize(n);
+        names.resize(n);
 
         void addEdge(int u, int v, int w) {
         adjList[u].push_back(make_pair(v, w));
         adjList[v].push_back(make_pair(u, w));
         }
 
-        void printGraph() {
+       void printGraph() {
+        cout << "Network Topology:" << endl;
         for (int i = 0; i < numNodes; i++) {
-            cout << i << " --> ";
+            cout << "Junction " << i << " (" << names[i] << ") connects to:" << endl;
             for (int j = 0; j < adjList[i].size(); j++) {
-                cout << "(" << adjList[i][j].first << ", " << adjList[i][j].second << ") ";
+                cout << "  -> " << adjList[i][j].first << " with capacity " << adjList[i][j].second << endl;
             }
-            cout << endl;
         }
         }
 
@@ -94,6 +97,10 @@ int main() {
     g.addEdge(8, 10, 6);
     g.addEdge(9, 10, 2);
 
+    vector<string> stopNames = {"Central", "Downtown", "City Hall", "Library", "Campus", "Hospital", "Mall", "Arena", "School", "Park", "Airport"};
+    for(int i = 0; i < 11; i++) { 
+        g.names[i] = stopNames[i]; 
+    }
     g.printGraph();
     g.DFS(0);
     return 0;
