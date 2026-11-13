@@ -3,6 +3,7 @@
 #include <stack>
 #include <queue>
 #include <string>
+#include <climits>
 
 using namespace std;
 
@@ -75,6 +76,31 @@ public:
             }
         }
         cout << endl;
+        }
+
+        void shortestPath(int start) {
+        vector<int> dist(numNodes, INT_MAX);
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+        dist[start] = 0;
+        pq.push(make_pair(0, start));
+
+        while (!pq.empty()) {
+            int d = pq.top().first;
+            int curr = pq.top().second;
+            pq.pop();
+
+            if (d > dist[curr]) continue;
+
+            for (int j = 0; j < adjList[curr].size(); j++) {
+                int next = adjList[curr][j].first;
+                int weight = adjList[curr][j].second;
+
+                if (dist[curr] + weight < dist[next]) {
+                    dist[next] = dist[curr] + weight;
+                    pq.push(make_pair(dist[next], next));
+                }
+            }
+        }
         }
     }
 };
