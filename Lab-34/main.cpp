@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <stack>
 
 using namespace std;
 
@@ -11,10 +12,12 @@ public:
     Graph(int n) {
         numNodes = n;
         adjList.resize(n);
+
         void addEdge(int u, int v, int w) {
         adjList[u].push_back(make_pair(v, w));
         adjList[v].push_back(make_pair(u, w));
         }
+
         void printGraph() {
         for (int i = 0; i < numNodes; i++) {
             cout << i << " --> ";
@@ -23,6 +26,12 @@ public:
             }
             cout << endl;
         }
+        }
+        
+        void DFS(int start) {
+        vector<bool> visited(numNodes, false);
+        stack<int> s;
+        s.push(start);
         }
     }
 };
