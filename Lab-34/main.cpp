@@ -107,6 +107,34 @@ public:
         cout << start << " -> " << i << " : " << dist[i] << endl;
     }
     }
+
+    void MST() {
+        vector<int> key(numNodes, INT_MAX);
+        vector<int> parent(numNodes, -1);
+        vector<bool> inMST(numNodes, false);
+        key[0] = 0;
+
+        for (int count = 0; count < numNodes; count++) {
+            int u = -1;
+            int minVal = INT_MAX;
+            for (int v = 0; v < numNodes; v++) {
+                if (!inMST[v] && key[v] < minVal) { minVal = key[v]; u = v; }
+            }
+            if (u == -1) break;
+            inMST[u] = true;
+
+            for (int j = 0; j < adjList[u].size(); j++) {
+                int v = adjList[u][j].first;
+                int weight = adjList[u][j].second;
+                if (!inMST[v] && weight < key[v]) { parent[v] = u; key[v] = weight; }
+            }
+        }
+
+        cout << "Minimum Spanning tree edges:" << endl;
+        for (int i = 1; i < numNodes; i++) {
+            cout << "Edge from " << parent[i] << " to " << i << " weight: " << key[i] << endl;
+        }
+    }
 }
 
 int main() {
