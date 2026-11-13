@@ -27,17 +27,36 @@ public:
             cout << endl;
         }
         }
-        
+
         void DFS(int start) {
         vector<bool> visited(numNodes, false);
         stack<int> s;
         s.push(start);
+
+        while (!s.empty()) {
+            int curr = s.top();
+            s.pop();
+
+            if (!visited[curr]) {
+                cout << curr << " ";
+                visited[curr] = true;
+            }
+
+            for (int j = 0; j < adjList[curr].size(); j++) {
+                int next = adjList[curr][j].first;
+                if (!visited[next]) {
+                    s.push(next);
+                }
+            }
         }
+        cout << endl;
+    }
     }
 };
 
 int main() {
     Graph g(7);
+    
     g.addEdge(0, 1, 12);
     g.addEdge(0, 2, 8);
     g.addEdge(0, 3, 21);
@@ -50,5 +69,6 @@ int main() {
     g.addEdge(5, 6, 6);
 
     g.printGraph();
+    g.DFS(0);
     return 0;
 }
