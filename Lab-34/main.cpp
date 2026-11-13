@@ -17,97 +17,97 @@ public:
         numNodes = n;
         adjList.resize(n);
         names.resize(n);
+    }
 
-        void addEdge(int u, int v, int w) {
-        adjList[u].push_back(make_pair(v, w));
-        adjList[v].push_back(make_pair(u, w));
-        }
+    void addEdge(int u, int v, int w) {
+    adjList[u].push_back(make_pair(v, w));
+    adjList[v].push_back(make_pair(u, w));
+    }
 
-       void printGraph() {
-        cout << "Network Topology:" << endl;
-        for (int i = 0; i < numNodes; i++) {
-            cout << "Junction " << i << " (" << names[i] << ") connects to:" << endl;
-            for (int j = 0; j < adjList[i].size(); j++) {
-                cout << "  -> " << adjList[i][j].first << " with capacity " << adjList[i][j].second << endl;
-            }
-        }
-        }
-
-        void DFS(int start) {
-        vector<bool> visited(numNodes, false);
-        stack<int> s;
-        s.push(start);
-
-        while (!s.empty()) {
-            int curr = s.top();
-            s.pop();
-
-            if (!visited[curr]) {
-                cout << curr << " ";
-                visited[curr] = true;
-            }
-
-            for (int j = 0; j < adjList[curr].size(); j++) {
-                int next = adjList[curr][j].first;
-                if (!visited[next]) {
-                    s.push(next);
-                }
-            }
-        }
-        cout << endl;
-        }
-        void BFS(int start) {
-        vector<bool> visited(numNodes, false);
-        queue<int> q;
-        visited[start] = true;
-        q.push(start);
-
-        while (!q.empty()) {
-            int curr = q.front();
-            q.pop();
-            cout << curr << " ";
-
-            for (int j = 0; j < adjList[curr].size(); j++) {
-                int next = adjList[curr][j].first;
-                if (!visited[next]) {
-                    visited[next] = true;
-                    q.push(next);
-                }
-            }
-        }
-        cout << endl;
-        }
-
-        void shortestPath(int start) {
-        vector<int> dist(numNodes, INT_MAX);
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-        dist[start] = 0;
-        pq.push(make_pair(0, start));
-
-        while (!pq.empty()) {
-            int d = pq.top().first;
-            int curr = pq.top().second;
-            pq.pop();
-
-            if (d > dist[curr]) continue;
-
-            for (int j = 0; j < adjList[curr].size(); j++) {
-                int next = adjList[curr][j].first;
-                int weight = adjList[curr][j].second;
-
-                if (dist[curr] + weight < dist[next]) {
-                    dist[next] = dist[curr] + weight;
-                    pq.push(make_pair(dist[next], next));
-                }
-            }
-        }
-        cout << "Shortest path from node " << start << ":" << endl;
-        for (int i = 0; i < numNodes; i++) {
-            cout << start << " -> " << i << " : " << dist[i] << endl;
-        }
+    void printGraph() {
+    cout << "Network Topology:" << endl;
+    for (int i = 0; i < numNodes; i++) {
+        cout << "Junction " << i << " (" << names[i] << ") connects to:" << endl;
+        for (int j = 0; j < adjList[i].size(); j++) {
+            cout << "  -> " << adjList[i][j].first << " with capacity " << adjList[i][j].second << endl;
         }
     }
-};
+    }
+
+    void DFS(int start) {
+    vector<bool> visited(numNodes, false);
+    stack<int> s;
+    s.push(start);
+
+    while (!s.empty()) {
+        int curr = s.top();
+        s.pop();
+
+        if (!visited[curr]) {
+            cout << curr << " ";
+            visited[curr] = true;
+        }
+
+        for (int j = 0; j < adjList[curr].size(); j++) {
+            int next = adjList[curr][j].first;
+            if (!visited[next]) {
+                s.push(next);
+            }
+        }
+    }
+    cout << endl;
+    }
+    void BFS(int start) {
+    vector<bool> visited(numNodes, false);
+    queue<int> q;
+    visited[start] = true;
+    q.push(start);
+
+    while (!q.empty()) {
+        int curr = q.front();
+        q.pop();
+        cout << curr << " ";
+
+        for (int j = 0; j < adjList[curr].size(); j++) {
+            int next = adjList[curr][j].first;
+            if (!visited[next]) {
+                visited[next] = true;
+                q.push(next);
+            }
+        }
+    }
+    cout << endl;
+    }
+
+    void shortestPath(int start) {
+    vector<int> dist(numNodes, INT_MAX);
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    dist[start] = 0;
+    pq.push(make_pair(0, start));
+
+    while (!pq.empty()) {
+        int d = pq.top().first;
+        int curr = pq.top().second;
+        pq.pop();
+
+        if (d > dist[curr]) continue;
+
+        for (int j = 0; j < adjList[curr].size(); j++) {
+            int next = adjList[curr][j].first;
+            int weight = adjList[curr][j].second;
+
+            if (dist[curr] + weight < dist[next]) {
+                dist[next] = dist[curr] + weight;
+                pq.push(make_pair(dist[next], next));
+            }
+        }
+    }
+    cout << "Shortest path from node " << start << ":" << endl;
+    for (int i = 0; i < numNodes; i++) {
+        cout << start << " -> " << i << " : " << dist[i] << endl;
+    }
+    }
+}
 
 int main() {
     Graph g(11);
@@ -133,6 +133,6 @@ int main() {
     }
     g.printGraph();
     g.DFS(0);
-    g.shortestPath(0);
+    
     return 0;
 }
