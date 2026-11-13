@@ -101,6 +101,10 @@ public:
                 }
             }
         }
+        cout << "Shortest path from node " << start << ":" << endl;
+        for (int i = 0; i < numNodes; i++) {
+            cout << start << " -> " << i << " : " << dist[i] << endl;
+        }
         }
     }
 };
@@ -129,5 +133,6 @@ int main() {
     }
     g.printGraph();
     g.DFS(0);
+    g.shortestPath(0);
     return 0;
 }
