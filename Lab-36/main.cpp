@@ -25,10 +25,29 @@ int main() {
         cin >> choice;
 
         if (choice == 1) {
-            cout << "Enter string code to add: ";
+            cout << "Enter code to add: ";
             cin >> inputCode;
             tree.insertNode(inputCode);
             cout << "Record Added.\n";
+        } 
+        else if (choice == 2) {
+            cout << "Enter code to delete: ";
+            cin >> inputCode;
+            if (tree.searchNode(inputCode)) {
+                tree.remove(inputCode);
+                cout << "Record Deleted.\n";
+            } else {
+                cout << "Error: Record not found.\n";
+            }
+        } 
+        else if (choice == 3) {
+            cout << "Enter code to search: ";
+            cin >> inputCode;
+            if (tree.searchNode(inputCode)) {
+                cout << "Success: Record found in tree!\n";
+            } else {
+                cout << "Record not found.\n";
+            }
         } 
         else if (choice == 5) {
             cout << "\n--- All Records ---\n";
