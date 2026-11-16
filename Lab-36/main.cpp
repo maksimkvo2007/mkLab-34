@@ -14,11 +14,30 @@ int main() {
             tree.insertNode(code);
         }
         file.close();
-        cout << "Tree successfully built from codes.txt!\n\n";
     }
 
-    cout << "Displaying BST records (First few will be numbers/capitals):\n";
-    tree.displayInOrder();
+    int choice = 0;
+    string inputCode;
+
+    while (choice != 6) {
+        cout << "\n1. Add a record\n2. Delete a record\n3. Search for a record\n";
+        cout << "4. Modify a record\n5. Display all records\n6. Exit\nChoice: ";
+        cin >> choice;
+
+        if (choice == 1) {
+            cout << "Enter string code to add: ";
+            cin >> inputCode;
+            tree.insertNode(inputCode);
+            cout << "Record Added.\n";
+        } 
+        else if (choice == 5) {
+            cout << "\n--- All Records ---\n";
+            tree.displayInOrder();
+        } 
+        else if (choice == 6) {
+            cout << "Exiting program...\n";
+        }
+    }
 
     return 0;
 }
